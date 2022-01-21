@@ -1,0 +1,285 @@
+/* second assignment - Aikaterini Kentroti - mai22030 */
+
+@import url('https://fonts.googleapis.com/css2?family=Jost&family=Lato:wght@400;700&family=Montserrat:wght@300&family=Open+Sans:wght@300&family=Outfit&display=swap');
+
+html{
+  font-size:16px;
+}
+
+body{
+
+font-family: "Outfit";
+}
+
+.subscribe {
+      
+  order: 3;
+}
+
+.login {
+  order: 2;
+}
+
+button {
+  background-color: transparent;
+  font-family: "Outfit";
+  color: white;
+  font-weight:bold;
+  outline: none;
+  cursor: pointer;
+  border:none;
+  font-size: 1rem;
+  flex:0.5;
+}
+
+::placeholder{
+  font-family: "Outfit";
+}
+
+.search{
+  border:none;
+  background-color: transparent;
+  outline: none;
+  color:white;
+  flex:0.5;
+  font-size:0.8rem;
+  order:0;
+  padding: 0 1rem; 
+}
+
+.search::placeholder{
+  color:white;
+}
+
+.header .header-title{
+ 
+  color:white;
+  font-size: 1.5rem;
+  flex:4;
+  text-align:center;
+  order:1;
+}
+
+.fieldSet button {
+  color: teal;
+  width:3rem;
+}
+
+/*format for the caption of the table*/
+caption {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/*format of the table*/
+.uomTrack {
+  
+  border-collapse: collapse;
+ 
+  
+  margin: 25px 0;
+  font-size: 0.9rem;
+  /* Attention: this property caused the table to exceed html's borders for a device breakpoint<400 px */
+  /* min-width:400px; */
+}
+
+/*formatting the cells of the header and the cells of the table body*/
+ .uomTrack th, td {
+  /* padding: x  y;  x: distance between the rows, y: distance between the columns*/
+   padding: 0.5rem 1rem; 
+   width: 6rem;
+} 
+
+
+/*formatting the header cells of the table's header */
+thead th {
+  width: 6rem;
+}
+
+/*formatting the header row*/
+.uomTrack thead tr{
+  text-align:left;
+  background-color: slateblue;
+  color: white;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: bold;
+}
+
+.uomTrack tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.uomTrack tbody tr:last-of-type {
+  border-bottom: 2px solid slateblue;
+}
+
+
+/* #1 flex container for the header class*/
+ .header{
+  background: teal;
+  /*flex container: οποιοδηποτε parent element me display property flex ή inline-flex*/
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  /* font-family: "Fira Sans", sans-serif; */
+  align-items: center;
+  
+}
+
+
+/* #2 flex container for the navigation class*/
+.navigation{
+  list-style: none;
+  margin: 0;
+  /*flex container: οποιοδηποτε parent element me display property flex ή inline-flex*/
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  /* font-family: "Fira Sans", sans-serif; */
+  align-items: baseline;
+}
+
+.navigation a {
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+/* #3 flex container for the table class*/
+.uomTrack{
+  list-style: none;
+  margin-top: 30px;
+  /*flex container: οποιοδηποτε parent element me display property flex ή inline-flex*/
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  /* font-family: "Fira Sans", sans-serif; */
+  align-items: baseline;
+}
+
+/* #3 flex container for the fieldSet class*/
+.fieldSet{
+  display:flex;
+  flex-direction: column;
+  margin-left: 65rem;
+  justify-content: flex-end;
+  width: 15px;
+  margin-top:20px;
+  margin-bottom:0rem;
+  align-items: center;
+}
+
+
+/* #4 flex container for the footer class*/
+.footer{
+  list-style: none;
+  /*flex container: οποιοδηποτε parent element me display property flex ή inline-flex*/
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  /* font-family: "Fira Sans", sans-serif; */
+  align-items: center;
+  font-size: 0.7rem;
+}
+
+
+@media all and (min-width: 401px) and (max-width: 800px) {
+  html {
+    font-size:12px;
+  }
+
+  .header {
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      /* justify-content: space-around; */
+      
+  }
+  .header .header-title{
+    order:1;
+    flex:4;
+  }
+
+  .header .subscribe{
+    order:3;
+    flex:1.5;
+  }
+
+  .header .login{
+    order:2;
+    flex:1.5;
+  }
+
+  .header .search{
+    order:0;
+    flex:0.2;
+  }
+}
+
+@media all and (max-width: 400px) {
+  html {
+    font-size:10px;
+  }
+
+  .header {
+      flex-direction: column;
+      /*wrap: flex items will wrap onto multiple lines, from top to bottom.*/
+      flex-wrap: wrap;
+      /* align-content:center; */
+      
+          
+  }
+
+  /*works fine*/
+  .navigation{
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content:center
+  }
+
+  .header .header-title{
+    order:1;
+     
+  }
+
+  .header .subscribe{
+    order:3;
+    
+  }
+
+  .header .login{
+    order:2;
+    
+  }
+
+  .header .search{
+    order:0;
+    text-align:center;
+     
+  }
+}
+
+
+   /*Place the li elements of the ul in the footer in one line*/
+   #list-footer li{
+       list-style-type: none;
+       display:inline;
+       padding-right: 20px;
+   }
+
+   /*Locate the element ul and the div element in one line*/
+     #footer ul,div{
+    display:inline;
+   } 
+
+    /*Remove the underline from hyperlinks*/
+    a:link {
+    text-decoration: none;
+  }
+
+   
