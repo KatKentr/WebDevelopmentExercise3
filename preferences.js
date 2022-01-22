@@ -46,7 +46,7 @@ function addTableData(){                               //add table data to local
         
         
 
-        // var statisticsCells=document.getElementsByClassName('statCells');      //attempt to store the statics too, did not work though
+        // var statisticsCells=document.getElementsByClassName('statCells');      //attempt to store the statistics too, did not work though
 
         // for (var i=0; i<statisticsCells.length;i++){
         //       arr2.push(statisticsCells[i].innerText);
@@ -333,12 +333,10 @@ document.querySelector('tbody').addEventListener('click',function (e){
 
 const submitButton=document.getElementById("submitTableData");
 
-submitButton.addEventListener('click', () => {         //when the user clicks on Insert, local storage and table is updated
+submitButton.addEventListener('click', () => {         //when the user clicks on Submit buttton, table data is stored in local storage
    
     addTableData();
     
-    // updateFields();
-    // location.reload();
 })
 
 //function for duplicating row
