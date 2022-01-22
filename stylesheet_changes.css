@@ -20,7 +20,15 @@ font-family: "Outfit";
   order: 2;
 }
 
-button {
+tfoot button {
+  color:white;
+  background-color: teal;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight:normal;
+ }
+
+  button {
   background-color: transparent;
   font-family: "Outfit";
   color: white;
@@ -64,6 +72,7 @@ button {
   color: teal;
   width:3rem;
 }
+
 
 /*format for the caption of the table*/
 caption {

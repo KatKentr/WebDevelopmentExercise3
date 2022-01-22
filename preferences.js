@@ -1,22 +1,23 @@
 'use strict';
 
-showData();                             //current preferences are displayed 
+showSetUpData();                             //current preferences are displayed 
 
-updateFields();
+updateFields();                             //update table according to current preferences
+ 
+showTableData();                            //stored table data in local storage are displayed
 
 let submitData = document.getElementById('InsertSetup');
 
 const table=document.querySelector('table');
 
-submitData.addEventListener('click', () => {         //when the user clicks on Insert, local storage and table is updated
-    addSetUpData();
-    addTableData();
+submitData.addEventListener('click', () => {         //when the user clicks on Insert, set up data is stored in local storage and table is updated according to preferences
+    addSetUpData();        // preferences are stored in local storage
     deleteTable();        //remove current table before create a new one
-    updateFields();
-    location.reload();
+    updateFields();       //table is updated according to preferences
+    location.reload();    //page is reloaded
 })
 
-function addSetUpData() {                                              //add data to localStrorage
+function addSetUpData() {                                              //add set up data (sport) and numberd of athletes (rows) to localStrorage
     let arr = [];
     const sport = document.getElementById("sportType");
     const athletes = document.getElementById("numAthletes");
@@ -24,12 +25,12 @@ function addSetUpData() {                                              //add dat
 
     DeleteData();   //clear previous local storage
 
-    arr.push(sport.value, athletes.value);     //sport inserted from user and number of elements are stored in an array that is the value of the key-value pair
+    arr.push(sport.value, athletes.value);     //sport inserted from user and number of athletes are stored in an array that is the value of the key-value pair
     //console.log(arr);
-    localStorage.setItem("localData", JSON.stringify(arr));    //add to local storage fo the user's set up
+    localStorage.setItem("localData", JSON.stringify(arr));    //add to local storage 
 }    
 
-function addTableData(){
+function addTableData(){                               //add table data to local storage
     if (tableHasBody()){
         let arr2=[];
         var rows=document.querySelectorAll('tr');
@@ -43,7 +44,15 @@ function addTableData(){
             arr2.push(inputElements[i].value);          
         }
         
-        console.log(arr2);
+        
+
+        // var statisticsCells=document.getElementsByClassName('statCells');      //attempt to store the statics too, did not work though
+
+        // for (var i=0; i<statisticsCells.length;i++){
+        //       arr2.push(statisticsCells[i].innerText);
+        // }
+
+        // console.log(arr2);
         localStorage.setItem("tableData",JSON.stringify(arr2));
     }
 }
@@ -54,37 +63,58 @@ function DeleteData() {   //function to clear the local Storage
     localStorage.clear();
 }
 
-function getSetUpData() {                             //returns the value of local storage ad an array
+function getSetUpData() {                             //returns the value of local storage for set up in array
     var str = localStorage.getItem("localData");
     var array = JSON.parse(str);
     return array;
 }
 
-function getTableData(){
+function getTableData(){                             //returns the value stored in local storage for table data in array
     var str=localStorage.getItem("tableData");
     var array=JSON.parse(str);
     return array;
 }
 
-function showData() {
-    var array = getSetUpData();
-    console.log(array);
+function showSetUpData() {                            //function to display the stored data fpr the set up from localStorage
+    var array = getSetUpData();            
+    console.log("set up data: "+array);
     const sport = document.getElementById("sportType");
     const athletes = document.getElementById("numAthletes");
     sport.value = array[0];
     athletes.value = array[1];
-
-    var tableData=getTableData();
-    console.log(tableData);
-    var inputElements=document.getElementsByClassName('inputField');
-       
-    for (var i=0; i<inputElements.length;i++){    //assign to the input value the values from local Storage
-        inputElements[i].value=tableData[i];          
-    }
-
 }
 
-function updateTitle(title) {
+function showTableData(){
+
+    var tableData=getTableData();
+    console.log("table data: "+tableData);
+    //console.log(typeof(tableData),tableData.length);
+    if (tableData!==null){
+        var inputElements=document.getElementsByClassName('inputField');
+        console.log("number of input elements: "+inputElements.length)
+    
+        for (var i=0; i<inputElements.length;i++){    //assign to the input value the values from local Storage
+            inputElements[i].value=tableData[i];
+            console.log("input elements have value: "+inputElements[i].value);          
+        }
+        
+        // var statisticsCells=document.getElementsByClassName('statCells');
+        // console.log(statisticsCells);
+        // if (tableData.length===statisticsCells.length+inputElements.length){    //if there are values stored in local storage for the statistics cells, display them
+        //     for (var j=inputElements.length; j<tableData.length;j++){
+        //         console.log(j,tableData[j]);
+        //         var i=statisticsCells.length-1;
+        //         statisticsCells[i].innerText=tableData[j];
+        //         console.log(statisticsCells[i].innerText);
+        //         i--;
+        //     }
+            
+        //}
+    }
+    
+}
+
+function updateTitle(title) {               //function to update the title of the table according to use'rs input
     var caption = document.querySelector('caption');
     caption.innerHTML = "Track Women: ";
     if (title != "") {
@@ -92,7 +122,7 @@ function updateTitle(title) {
     }
 }
 
-function deleteTable(){
+function deleteTable(){               //deletes table and table footer
     var tobody=document.getElementById('tableBody');
     var footer=document.getElementById('tableFooter');
      if (tableHasBody()){
@@ -114,7 +144,7 @@ function tableHasBody(){
     }
 }
 
-function createTable(table, rowCount, columns) {
+function createTable(table, rowCount, columns) {         //function to create table if the user enters a number in the number of rows field
     var cell = [];
     var inputElements = [];
     var rows=[];
@@ -201,10 +231,6 @@ function updateFields() {
     
     
     createTable(table, rows, colCount);                 //create a table if the input is valid 
-    
-   
-    
-
 }
 
 //function to calculate min, max and average score
@@ -218,6 +244,7 @@ function Statistics(table){
     for (var i = 1; i < (rows.length - 1); i++) {
       let x = rows[i].getElementsByClassName('inputField')[2];
       score[i]= parseFloat((x.value));  //converting string to number
+      console.log(score[i]);
       sum+= score[i];
       //console.log("score is: ",score[i],typeof score[i]);
       if (score[i]>max){
@@ -229,7 +256,7 @@ function Statistics(table){
     }
     //console.log(score.length); 
     let avg=Math.round((sum/score.length));
-    console.log(sum);
+    console.log("sum is: "+sum,"length of score column: "+score.length,"average is: "+avg,"score is: "+score);
     if (score.length===0 || (Number.isNaN(sum))){
       return [0,0,0]
     } else{
@@ -245,12 +272,25 @@ function Statistics(table){
   var footer = table.createTFoot();
   footer.id="tableFooter";
   var row = footer.insertRow(0);
-  for (var i=0; i<3; i++ ){
+  for (var i=0; i<4; i++ ){
     var cell = row.insertCell(i);
     cell.style.width="100px";
-    cell.style.fontWeight='bold';
-    cell.innerHTML = stringsArray[i] +(z[i]);
-  } 
+    
+    if (i!==3){
+        cell.style.fontWeight='bold';
+        cell.innerHTML = stringsArray[i] +(z[i]);
+        cell.className="statCells";
+    } else{
+        var submitButton = document.createElement('button');
+        submitButton.id="submitTableData";
+        submitButton.innerHTML = "Submit";
+        cell.appendChild(submitButton);
+    }
+    
+    
+  }
+  
+
 }
 
 //function to update the values in the footer
@@ -291,6 +331,15 @@ document.querySelector('tbody').addEventListener('click',function (e){
   updateFooter(footerStrings,Statistics,table); //updating the statistics in the tfoot after an insertion or a remove from the table
 })
 
+const submitButton=document.getElementById("submitTableData");
+
+submitButton.addEventListener('click', () => {         //when the user clicks on Insert, local storage and table is updated
+   
+    addTableData();
+    
+    // updateFields();
+    // location.reload();
+})
 
 //function for duplicating row
 function copyRow(table,rowIndex){
