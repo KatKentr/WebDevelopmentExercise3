@@ -65,7 +65,9 @@ function DeleteData() {   //function to clear the local Storage
 
 function getSetUpData() {                             //returns the value of local storage for set up in array
     var str = localStorage.getItem("localData");
+    
     var array = JSON.parse(str);
+    
     return array;
 }
 
@@ -80,8 +82,11 @@ function showSetUpData() {                            //function to display the 
     console.log("set up data: "+array);
     const sport = document.getElementById("sportType");
     const athletes = document.getElementById("numAthletes");
-    sport.value = array[0];
-    athletes.value = array[1];
+    if (array!==null){
+      sport.value = array[0];
+      athletes.value = array[1];
+    }
+    
 }
 
 function showTableData(){
@@ -214,9 +219,15 @@ function isNum(val) {   //returns true if a string is a number
 
 function updateFields() {
     var array = getSetUpData();
-    var title = array[0];
-    var rows = array[1];
 
+    if (array!==null){              //if there are values in local storage
+      var title = array[0];
+      var rows = array[1];
+    } else{
+      var title="";
+      var rows=0;
+    }
+    
     var table = document.querySelector('table');
     var headers = document.querySelectorAll('th');
     var headerArray = Array.from(headers);            //retrieve number of columns from header
@@ -281,13 +292,15 @@ function Statistics(table){
         cell.innerHTML = stringsArray[i] +(z[i]);
         cell.className="statCells";
     } else{
+      if (tableHasBody()){
         var submitButton = document.createElement('button');
         submitButton.id="submitTableData";
-        submitButton.innerHTML = "Submit";
+        submitButton.innerHTML = "Store";
         cell.appendChild(submitButton);
+      }
+       
     }
-    
-    
+      
   }
   
 
