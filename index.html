@@ -1,17 +1,15 @@
-<!-- third assignment - Aikaterini Kentroti - mai22030 -->
 
-<!DOCTYPE html>
-<html manifest="Exercise_03.appcache" lang="en">
-
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Athletic corner: home</title>
+    <link rel="shortcut icon" href="/icon1-192.ico">
     <link rel="stylesheet" href="stylesheet_changes.css">
     <link rel="manifest"   href="manifest.json">
     <script src="preferences.js" defer></script>
 </head>
-
 <body>
     <header class="header">
         <h1 class="header-title">Athletic corner</h1>
@@ -27,6 +25,7 @@
             <a href="#">Stories</a>
             <a href="#">Tickets</a>
         </nav>
+        <p><h2>Here you can store and process track ratings</h2></p>
         <fieldset class="fieldSet">
             <legend>Insert Preferences</legend>
             <input id="sportType" type="text" placeholder="Enter category e.g 100 metres..">
@@ -35,7 +34,8 @@
         </fieldset>
         <table class="uomTrack">
          <!-- <table > -->
-            <caption> </caption>
+            <caption > </caption>
+            <input type="checkbox" id="SeasonBestCheckbox" name="seasonBest" value="SeasonBest"> <label for="SeasonBest"> Add Season Best</label>
             <thead>
                 <tr>
                     <th>Rank</th>

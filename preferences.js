@@ -17,7 +17,7 @@ submitData.addEventListener('click', () => {         //when the user clicks on I
     location.reload();    //page is reloaded
 })
 
-function addSetUpData() {                                              //add set up data (sport) and numberd of athletes (rows) to localStrorage
+function addSetUpData() {                                              //add set up data: title of table and number of athletes (rows) to localStrorage
     let arr = [];
     const sport = document.getElementById("sportType");
     const athletes = document.getElementById("numAthletes");
@@ -25,7 +25,7 @@ function addSetUpData() {                                              //add set
 
     DeleteData();   //clear previous local storage
 
-    arr.push(sport.value, athletes.value);     //sport inserted from user and number of athletes are stored in an array that is the value of the key-value pair
+    arr.push(sport.value, athletes.value);     //title inserted from user and number of athletes are stored in an array, which is the value of the key-value pair
     //console.log(arr);
     localStorage.setItem("localData", JSON.stringify(arr));    //add to local storage 
 }    
@@ -40,19 +40,19 @@ function addTableData(){                               //add table data to local
         console.log("rows "+rows.length,"columns " +headers.length);
         console.log(inputElements[0],typeof(inputElements));
 
-        for (var i=0; i<inputElements.length;i++){    //strore the values of the input fields in arr2
+        for (var i=0; i<inputElements.length;i++){    //store the values of the input fields in arr2
             arr2.push(inputElements[i].value);          
         }
         
         
 
-        // var statisticsCells=document.getElementsByClassName('statCells');      //attempt to store the statistics too, did not work though
+        var statisticsCells=document.getElementsByClassName('statCells');      //store statistics too
 
-        // for (var i=0; i<statisticsCells.length;i++){
-        //       arr2.push(statisticsCells[i].innerText);
-        // }
+        for (var i=0; i<statisticsCells.length;i++){
+              arr2.push(statisticsCells[i].innerText);
+        }
 
-        // console.log(arr2);
+        console.log(arr2);
         localStorage.setItem("tableData",JSON.stringify(arr2));
     }
 }
@@ -77,9 +77,9 @@ function getTableData(){                             //returns the value stored 
     return array;
 }
 
-function showSetUpData() {                            //function to display the stored data fpr the set up from localStorage
+function showSetUpData() {                            //function to display the stored user's set up preferences from localStorage
     var array = getSetUpData();            
-    console.log("set up data: "+array);
+    // console.log("set up data: "+array);
     const sport = document.getElementById("sportType");
     const athletes = document.getElementById("numAthletes");
     if (array!==null){
@@ -89,32 +89,33 @@ function showSetUpData() {                            //function to display the 
     
 }
 
-function showTableData(){
+function showTableData(){                       //function to display the stored table data of the user, from localStorage
 
     var tableData=getTableData();
-    console.log("table data: "+tableData);
+    // console.log("table data: "+tableData);
     //console.log(typeof(tableData),tableData.length);
     if (tableData!==null){
         var inputElements=document.getElementsByClassName('inputField');
-        console.log("number of input elements: "+inputElements.length)
+        // console.log("number of input elements: "+inputElements.length)
     
         for (var i=0; i<inputElements.length;i++){    //assign to the input value the values from local Storage
             inputElements[i].value=tableData[i];
-            console.log("input elements have value: "+inputElements[i].value);          
+            // console.log("input elements have value: "+inputElements[i].value);          
         }
         
-        // var statisticsCells=document.getElementsByClassName('statCells');
-        // console.log(statisticsCells);
-        // if (tableData.length===statisticsCells.length+inputElements.length){    //if there are values stored in local storage for the statistics cells, display them
-        //     for (var j=inputElements.length; j<tableData.length;j++){
-        //         console.log(j,tableData[j]);
-        //         var i=statisticsCells.length-1;
-        //         statisticsCells[i].innerText=tableData[j];
-        //         console.log(statisticsCells[i].innerText);
-        //         i--;
-        //     }
+        var statisticsCells=document.getElementsByClassName('statCells');
+        console.log(statisticsCells);
+        var i=0;
+        if (tableData.length===statisticsCells.length+inputElements.length){    //if there are values stored in local storage for the statistics cells, display them
+            for (var j=inputElements.length; j<tableData.length;j++){
+                console.log(j,tableData[j]);
+                
+                statisticsCells[i].innerHTML=tableData[j];
+                console.log(i,statisticsCells[i].innerHTML);
+                i++;
+            }
             
-        //}
+        }
     }
     
 }
@@ -132,7 +133,7 @@ function deleteTable(){               //deletes table and table footer
     var footer=document.getElementById('tableFooter');
      if (tableHasBody()){
         
-        console.log("tbody is:"+tobody);
+        // console.log("tbody is:"+tobody);
         tobody.remove();
         
      }
@@ -152,7 +153,6 @@ function tableHasBody(){
 function createTable(table, rowCount, columns) {         //function to create table if the user enters a number in the number of rows field
     var cell = [];
     var inputElements = [];
-    var rows=[];
 
     if (rowCount != "" && isNum(rowCount)) {
         var tbody = document.createElement('tbody');                 //add tbody element
@@ -161,7 +161,7 @@ function createTable(table, rowCount, columns) {         //function to create ta
         for (var i = 0; i < rowCount; i++) {            //create rows and add cells
             cell[i] = 0;
             inputElements[i] = 0;
-            console.log(i);
+            // console.log(i);
           
             var row =document.createElement("tr");       //cretae rows
 
@@ -217,7 +217,8 @@ function isNum(val) {   //returns true if a string is a number
     return !isNaN(val)
 }
 
-function updateFields() {
+function updateFields() {            //update the title of the table and create table according to user's stored preferences
+
     var array = getSetUpData();
 
     if (array!==null){              //if there are values in local storage
@@ -234,9 +235,9 @@ function updateFields() {
     var colCount = headerArray.length;
 
 
-    console.log(colCount);
-    console.log(rows);
-    console.log(isNum(rows))
+    // console.log(colCount);
+    // console.log(rows);
+    // console.log(isNum(rows))
 
     updateTitle(title);
     
@@ -255,7 +256,7 @@ function Statistics(table){
     for (var i = 1; i < (rows.length - 1); i++) {
       let x = rows[i].getElementsByClassName('inputField')[2];
       score[i]= parseFloat((x.value));  //converting string to number
-      console.log(score[i]);
+      // console.log(score[i]);
       sum+= score[i];
       //console.log("score is: ",score[i],typeof score[i]);
       if (score[i]>max){
@@ -267,7 +268,7 @@ function Statistics(table){
     }
     //console.log(score.length); 
     let avg=Math.round((sum/score.length));
-    console.log("sum is: "+sum,"length of score column: "+score.length,"average is: "+avg,"score is: "+score);
+    // console.log("sum is: "+sum,"length of score column: "+score.length,"average is: "+avg,"score is: "+score);
     if (score.length===0 || (Number.isNaN(sum))){
       return [0,0,0]
     } else{
@@ -346,7 +347,7 @@ document.querySelector('tbody').addEventListener('click',function (e){
 
 const submitButton=document.getElementById("submitTableData");
 
-submitButton.addEventListener('click', () => {         //when the user clicks on Submit buttton, table data is stored in local storage
+submitButton.addEventListener('click', () => {         //when the user clicks on Store buttton, table data is stored in local storage
    
     addTableData();
     
@@ -481,5 +482,74 @@ function insertAfter(after, newNode){
     }
     
   }
+}
+
+
+function appendColumn() {
+  
+  const table=document.querySelector('table'); // table reference
+  var newTh = document.createElement('th');
+  newTh.className="SeasonBest";
+  var headers = document.querySelectorAll('th');
+  console.log(headers[headers.length-1]);
+  insertAfterColumn(newTh,headers[headers.length-1]);
+  
+  newTh.innerHTML = 'Season Best';
+  
+  // open loop for each row in tbody and append cell at the end
+  var rows = document.getElementsByTagName('tr');
+
+  for (var i = 1; i < rows.length-1; i++) {
+      var newCell = rows[i].insertCell(4);
+      newCell.id=`SeasonBest ${i}`;
+      newCell.className="SeasonBestCell";
+      var inputElement = document.createElement('input'); //creating the input elements
+                
+      inputElement.style.color = "black";
+      inputElement.type = "text";
+      inputElement.placeholder = "type here";
+      inputElement.className = "inputField";  //adding a class name to the input fields
+      inputElement.setAttribute('size', 4);
+      newCell.appendChild(inputElement);    //setting the input element to be child of the td element
+
+  }
+}
+
+function insertAfterColumn(newNode, existingNode) {
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+
+const checkbox1=document.getElementById("SeasonBestCheckbox");
+
+checkbox1.addEventListener('click', () => {         //when the user clicks on Store buttton, table data is stored in local storage
+   
+    checkBoxState();
+})
+
+function checkBoxState(){
+
+  const checkbox1=document.getElementById("SeasonBestCheckbox");
+
+    if (checkbox1.checked){ 
+      
+      console.log(checkbox1.checked);
+      appendColumn();
+
+    } else{
+
+      const seasonBest=document.getElementsByClassName("SeasonBest");
+      const seasonBestCells=document.getElementsByClassName("SeasonBestCell");
+      seasonBest[0].remove();
+      console.log(seasonBestCells.length);
+      
+      for (var i=1; i<seasonBestCells.length;i++){
+        var element=document.getElementById("SeasonBest "+i);
+        console.log(i,element);
+       
+        element.style.display = "none";
+      }
+      document.getElementById("SeasonBest 3").remove();
+      
+    }
 }
 

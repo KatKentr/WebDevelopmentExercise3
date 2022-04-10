@@ -43,6 +43,9 @@ tfoot button {
 ::placeholder{
   font-family: "Outfit";
 }
+h2 {
+  color: slateblue;
+}
 
 .search{
   border:none;

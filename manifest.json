@@ -2,11 +2,16 @@
     "short_name": "Athletic corner",
     "name": "Athletic corner An application to store and process track ratings",
     "icons":[{
-         "src":"/assets/icon1.png",
+        "src":"./assets/icon1-192.png",
+         "type":"image/png",
+         "sizes":"192x192"
+    },
+        {
+         "src":"./assets/icon1.png",
          "type":"image/png",
          "sizes":"512x512"
     }],
-    "start_url": "/",
+    "start_url": "./",
     "background_color": "white",
     "display": "standalone",
     "description": "An application to store and process track ratings"
